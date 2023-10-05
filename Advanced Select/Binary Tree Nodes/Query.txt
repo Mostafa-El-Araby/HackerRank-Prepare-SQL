@@ -1,0 +1,15 @@
+WITH NodeTypes AS
+(
+    SELECT
+        [N] AS Node,
+        [P] AS Parent
+    FROM [BST]
+)
+SELECT
+    CASE
+        WHEN [Parent] IS NULL THEN CONCAT([Node], ' ', 'Root')
+        WHEN [Node] NOT IN(SELECT DISTINCT [Parent] FROM [NodeTypes] WHERE [Parent] IS NOT NULL) THEN CONCAT([Node], ' ', 'Leaf')
+        ELSE CONCAT([Node], ' ', 'Inner')
+    END AS NodeType
+FROM [NodeTypes]
+ORDER BY [Node] ASC;
