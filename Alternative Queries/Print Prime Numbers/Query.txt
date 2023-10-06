@@ -1,0 +1,24 @@
+DECLARE @i INT, @k INT, @ok BIT, @result VARCHAR(1000);
+SET @i = 2;
+SET @result = LTRIM(STR(@i));
+SET @i = 3;
+WHILE @i <= 1000
+BEGIN
+    SET @k = 2;
+    SET @ok  = 1;
+    WHILE @k * @k <= @i
+    BEGIN
+        IF @i % @k = 0
+            BEGIN
+                SET @ok = 0;
+                BREAK;
+            END
+        SET @k += 1;
+    END
+    IF @ok = 1
+        BEGIN
+            SET @result += '&' + LTRIM(STR(@i))
+        END
+    SET @i += 1;
+END
+SELECT @result AS PrimeNumbers;
