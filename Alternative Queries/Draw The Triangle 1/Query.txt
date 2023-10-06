@@ -1,0 +1,15 @@
+WITH CTE AS
+(
+    SELECT
+        1 AS row_num,
+        20 AS max_row
+    UNION ALL
+    SELECT
+        row_num + 1,
+        max_row
+    FROM [CTE]
+    WHERE row_num < max_row
+)
+SELECT
+    REPLICATE('* ', 21 - row_num) AS 'Pattern'
+FROM [CTE];
